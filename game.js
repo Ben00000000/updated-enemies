@@ -493,7 +493,7 @@ this.physics.add.overlap(player, [redbouncyenemy1, redbouncyenemy2, redbouncyene
     // Create player animations
        this.anims.create({
            key: 'left',
-           frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 14 }),  // Adjust end frame based on the number of frames in your sprite
+           frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 12 }),  // Adjust end frame based on the number of frames in your sprite
            frameRate: 25,
            repeat: -1
        });
@@ -506,7 +506,7 @@ this.physics.add.overlap(player, [redbouncyenemy1, redbouncyenemy2, redbouncyene
 
        this.anims.create({
            key: 'right',
-           frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 14 }),  // Adjust start and end frames based on the number of frames in your sprite
+           frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 12 }),  // Adjust start and end frames based on the number of frames in your sprite
            frameRate: 25,
            repeat: -1
        });
@@ -790,6 +790,8 @@ function winScreen() {
 
 
   }
+  var hpBar = this.add.graphics();
+
 function updatePlayerHPBar() {
     // Calculate the width of the HP bar based on the player's health percentage
     var hpBarWidth = (playerHealth / 100) * 100; // Adjust 100 based on your desired maximum width
@@ -801,6 +803,9 @@ function updatePlayerHPBar() {
     // Update the HP bar graphics or any UI element you're using
     hpBar.clear();
 
+        hpBar.fillStyle(0x222222, 1); // Adjust the background color based on your preference
+        hpBar.fillRoundedRect(10, 10, 100, 20, 5);
+
     // Draw the filled HP bar with rounded corners and radial gradient color
     var borderRadius =3; // Adjust the border radius based on your preference
 
@@ -808,9 +813,22 @@ function updatePlayerHPBar() {
     hpBar.fillGradientStyle(1, endColor, startColor, 1);
     hpBar.fillRoundedRect(11, 11, hpBarWidth - 2, 18, borderRadius - 1); // Adjust the position, dimensions, and border radius based on your preference
 
-    // Draw the border
-    hpBar.lineStyle(2, 0x000000, 1); // Adjust the line width and color based on your preference
-    hpBar.strokeRoundedRect(10, 10, 100, 20, borderRadius); // Adjust the position, dimensions, and border radius based on your preference
+   // Draw Border with 3D Effect
+   var borderWidth = 2; // Adjust the border width based on your preference
+   var borderColor = 0x000000; // Border color
+
+   // Draw the outer shadow
+   hpBar.lineStyle(borderWidth, 0x333333, 1); // Darker color for outer shadow
+   hpBar.strokeRoundedRect(10, 10, 100, 20, borderRadius);
+
+   // Draw the inner shadow
+   hpBar.lineStyle(borderWidth, 0x666666, 1); // Slightly lighter color for inner shadow
+   hpBar.strokeRoundedRect(11, 11, hpBarWidth - 2, 18, borderRadius - 1);
+
+   // Draw the main border
+   hpBar.lineStyle(borderWidth, borderColor, 1);
+   hpBar.strokeRoundedRect(11, 11, hpBarWidth - 2, 18, borderRadius - 1);
+
 }
 
 
